@@ -141,6 +141,7 @@ public class UseridNpsDtsParser {
 	/**
 	 * This method will discard any non useful DTS message. We'll only keep these one that satisfy:
 	 * <ul>
+	 * <li>Matches the user-provided regular expression in the in the configuration file {@link userid4nps#includePattern}
 	 * <li>Have an "Acct-Status-Type" element node
 	 * <li>The "Acct-Status-Type" element node has values "1" (start) or "2" (stop) or "3" (interim)
 	 * <li>Have an "User-Name" element node

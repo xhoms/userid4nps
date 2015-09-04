@@ -357,6 +357,13 @@ public class userid4nps {
 	 * we'll review the {@link userid4nps#npsLogDir} directory to see if NPS has rolled up to a new
 	 * log file. In such a case we close the old fine and open {@link userid4nps#fcNpsLogFile} to the newer one.
 	 * 
+	 * We use three different strategies to sense a roll over. So it also works with file systems that do not update the timestamp (NTFS in many Windows Server OS)
+	 * <ul>
+	 * <li>Looking for a newer file (from a timestamp point of view). If it doesn't sense a new file then ...</li>
+	 * <li>Looking if there is one, and only one, new ".log" file in the directory (compared to the list of ".log" files from the previous sample). If it doesn't sense a new file then ...</li>
+	 * <li>Looking for the ".log" file that is growing in size</li>
+	 * </ul> 
+	 * 
 	 * @param oldFile	Pointer to the currently opened log file
 	 * @return		A {@link userid4nps#fsm} OK transition.
 	 * @throws IOException
