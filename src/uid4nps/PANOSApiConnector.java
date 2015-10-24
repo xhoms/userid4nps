@@ -63,7 +63,7 @@ public class PANOSApiConnector {
 	 * @throws IOException
 	 */
 	public PANOSApiConnector(String pANOSUrl, String aPIKey, String vsys) throws IOException {
-		PANOSUrl = new URL(pANOSUrl+"/api");
+		PANOSUrl = new URL(pANOSUrl+"/api/?");
 		APIKey = aPIKey;
 		this.vsys=vsys;
 		panosCheckCommand = "type=op&key="+APIKey+"&cmd="+URLEncoder.encode("<check><pending-changes></pending-changes></check>", "utf-8");
@@ -99,6 +99,7 @@ public class PANOSApiConnector {
 			APIConnection.setRequestProperty("charset", "utf-8");
 			APIConnection.setUseCaches (false);
 			APIConnection.setRequestProperty("Content-Length", "" + Integer.toString(panosCheckCommand.getBytes().length));
+			logHandler.finest(panosCheckCommand);
 			try {
 				wr = new DataOutputStream(APIConnection.getOutputStream ());
 				wr.writeBytes(panosCheckCommand);
@@ -114,6 +115,7 @@ public class PANOSApiConnector {
 				while ((linia = in.readLine()) != null)
 					response += linia;
 				in.close();
+				logHandler.finest("Response message: "+response);
 			} catch (IOException e) {
 				logHandler.info("Communication error. Alive Check Failed for "+PANOSUrl.toString());
 				return;
