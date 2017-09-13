@@ -313,7 +313,7 @@ public class userid4nps {
 			}
 			}
 		};
-		SSLContext sc = SSLContext.getInstance("SSL");
+		SSLContext sc = SSLContext.getInstance("TLS");
 		sc.init(null, trustAllCerts, new java.security.SecureRandom());
 		HostnameVerifier allHostsValid = new HostnameVerifier() {
 
